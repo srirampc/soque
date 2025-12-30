@@ -1,0 +1,42 @@
+DEBUG:__main__:2025-12-30 13:45:16.273184 :: 0 :: MPI #P 2; IN: /storage/home/hcoda1/0/schockalingam6/data/v1_test/network_v1/left_local_edges.edge_types_120.sorted.h5; OUT: /storage/home/hcoda1/0/schockalingam6/scratch/test_out_par.h5
+TIMER   1.722e+03       1.722e+03       1.722e+03       2       READ EDGES
+TIMER   8.596e+03       8.596e+03       8.596e+03       2       SORT EDGES
+TIMER   1.740e+03       1.740e+03       1.740e+03       2       SAVE EDGES
+TIMER   1.206e+04       1.206e+04       1.206e+04       2       COMPLETE
+DEBUG:__main__:2025-12-30 13:45:28.333616 :: 0 :: SORTED and WRITTEN TO /storage/home/hcoda1/0/schockalingam6/scratch/test_out_par.h5
+
+DEBUG:__main__:2025-12-30 13:55:22.915097 :: 0 :: MPI #P 4; IN: /storage/home/hcoda1/0/schockalingam6/data/v1_test/network_v1/left_local_edges.edge_types_120.sorted.h5; OUT: /storage/home/hcoda1/0/schockalingam6/scratch/test_out_par.h5
+TIMER	2.198e+03	2.198e+03	2.198e+03	2	READ EDGES
+TIMER	4.531e+03	4.552e+03	4.574e+03	2	SORT EDGES
+TIMER	2.566e+03	2.566e+03	2.566e+03	2	SAVE EDGES
+TIMER	9.338e+03	9.338e+03	9.338e+03	2	COMPLETE
+DEBUG:__main__:2025-12-30 13:55:32.254797 :: 0 :: SORTED and WRITTEN TO /storage/home/hcoda1/0/schockalingam6/scratch/test_out_par.h5
+DEBUG:__main__:2025-12-30 13:56:21.284176 :: 0 :: MPI #P 8; IN: /storage/home/hcoda1/0/schockalingam6/data/v1_test/network_v1/left_local_edges.edge_types_120.sorted.h5; OUT: /storage/home/hcoda1/0/schockalingam6/scratch/test_out_par.h5
+TIMER	2.096e+03	2.096e+03	2.096e+03	2	READ EDGES
+TIMER	2.525e+03	2.535e+03	2.549e+03	2	SORT EDGES
+TIMER	2.452e+03	2.452e+03	2.452e+03	2	SAVE EDGES
+TIMER	7.097e+03	7.097e+03	7.097e+03	2	COMPLETE
+DEBUG:__main__:2025-12-30 13:56:28.382170 :: 0 :: SORTED and WRITTEN TO /storage/home/hcoda1/0/schockalingam6/scratch/test_out_par.h5
+DEBUG:__main__:2025-12-30 13:56:55.397242 :: 0 :: MPI #P 16; IN: /storage/home/hcoda1/0/schockalingam6/data/v1_test/network_v1/left_local_edges.edge_types_120.sorted.h5; OUT: /storage/home/hcoda1/0/schockalingam6/scratch/test_out_par.h5
+TIMER	1.519e+03	1.520e+03	1.520e+03	2	READ EDGES
+TIMER	1.302e+03	1.308e+03	1.317e+03	2	SORT EDGES
+TIMER	1.755e+03	1.755e+03	1.756e+03	2	SAVE EDGES
+TIMER	4.592e+03	4.592e+03	4.592e+03	2	COMPLETE
+DEBUG:__main__:2025-12-30 13:56:59.991151 :: 0 :: SORTED and WRITTEN TO /storage/home/hcoda1/0/schockalingam6/scratch/test_out_par.h5
+DEBUG:__main__:2025-12-30 14:30:15.848846 :: 0 :: MPI #PROC 1:: Input:: /storage/home/hcoda1/0/schockalingam6/data/v1_test/network_v1/left_local_edges.edge_types_120.sorted.h5 :: Output :: /storage/home/hcoda1/0/schockalingam6/scratch/test_out_seq_numpy.h5
+DEBUG:__main__:2025-12-30 14:30:17.599401 :: 0 ::  DATA LOADED dict_keys(['target', 'source']) in 1.7504053115844727 seconds
+DEBUG:__main__:2025-12-30 14:32:56.652613 :: 0 :: MPI #PROC 1:: Input:: /storage/home/hcoda1/0/schockalingam6/data/v1_test/network_v1/left_local_edges.edge_types_120.sorted.h5 :: Output :: /storage/home/hcoda1/0/schockalingam6/scratch/test_out_seq_numpy.h5
+DEBUG:__main__:2025-12-30 14:32:58.616381 :: 0 ::  DATA LOADED dict_keys(['target', 'source']) in 1.9636187553405762 seconds
+DEBUG:__main__:2025-12-30 14:39:20.315326 :: 0 ::  DATA SORTED (164024874,) (164024874,) (164024874,) in 381.69877409935 seconds
+DEBUG:__main__:2025-12-30 14:39:21.918876 :: 0 ::  DATA WRITTEN in 1.6034188270568848 seconds
+DEBUG:__main__:2025-12-30 14:39:21.918988 :: 0 ::  TOTAL in 385.26612877845764 seconds
+DEBUG:__main__:2025-12-30 14:41:24.477019 :: 0 :: MPI #PROC 1:: Input:: /storage/home/hcoda1/0/schockalingam6/data/v1_test/network_v1/left_local_edges.edge_types_120.sorted.h5 :: Output :: /storage/home/hcoda1/0/schockalingam6/scratch/test_out_seq_pandas.h5
+DEBUG:__main__:2025-12-30 14:41:26.374051 :: 0 ::  DATA LOADED dict_keys(['target', 'source']) in 1.8968820571899414 seconds
+DEBUG:__main__:2025-12-30 14:41:46.450725 :: 0 ::  DATA SORTED Index(['target', 'source'], dtype='object') in 20.07637906074524 seconds
+DEBUG:__main__:2025-12-30 14:41:47.530214 :: 0 ::  DATA WRITTEN in 1.0793616771697998 seconds
+DEBUG:__main__:2025-12-30 14:41:47.530319 :: 0 ::  TOTAL in 23.05306124687195 seconds
+DEBUG:__main__:2025-12-30 14:41:57.481990 :: 0 :: MPI #PROC 1:: Input:: /storage/home/hcoda1/0/schockalingam6/data/v1_test/network_v1/left_local_edges.edge_types_120.sorted.h5 :: Output :: /storage/home/hcoda1/0/schockalingam6/scratch/test_out_seq_polars.h5
+DEBUG:__main__:2025-12-30 14:41:59.330090 :: 0 :: DATA LOADED dict_keys(['target', 'source']) in 1.847949504852295 seconds
+DEBUG:__main__:2025-12-30 14:42:08.819788 :: 0 ::  DATA SORTED ['target', 'source'] in 9.489538669586182 seconds
+DEBUG:__main__:2025-12-30 14:42:09.935017 :: 0 ::  DATA WRITTEN in 1.115098476409912 seconds
+DEBUG:__main__:2025-12-30 14:42:09.935127 :: 0 ::  TOTAL in 12.452891826629639 seconds
