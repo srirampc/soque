@@ -5,11 +5,13 @@
 #include "H5version.h"
 #include "hdf5.h"
 #include "stdlib.h"
+#include <algorithm>
 #include <cassert>
 #include <cstdlib>
 #include <functional>
 #include <mpi.h>
 #include <numeric>
+#include <utility>
 #include <vector>
 
 #include "soque/utils.hpp"
@@ -24,6 +26,12 @@ struct H5DataTD {
     hsize_t type_size;
     std::vector<hsize_t> dims;
     bool should_close;
+
+    H5DataTD(H5DataTD&& other): 
+        type_id(other.type_id), type_size(other.type_size),
+        dims(other.dims), should_close(other.should_close) {
+        other.should_close = false;
+    };
 
     H5DataTD(hid_t file_id, const char* dset_name) {
         //
@@ -173,9 +181,19 @@ template <typename DT, const int RANK> struct H5DataInterface {
 
 template <typename DT, const int RANK, typename VECT = std::vector<DT>>
 struct H5VecData : H5DataInterface<DT, RANK> {
+private:
+    H5VecData(H5VecData&) {};
+
+public:
     H5DataTD hdt;
     std::vector<hsize_t> _counts, _offsets;
     VECT _data;
+
+    H5VecData(H5VecData&& other): 
+        hdt(std::move(other.hdt)), _counts(std::move(other._counts)),
+        _offsets(std::move(other._offsets)), _data(std::move(other._data)){
+        other._data.clear();
+    }
 
     //
     H5VecData(hid_t file_id, const char* dset_name) : hdt(file_id, dset_name) {}
@@ -215,6 +233,7 @@ struct H5VecData : H5DataInterface<DT, RANK> {
         this->read_dataset_mpi(file_id, dset_name);
     }
 
+    const VECT& vdata() {return _data;}
     const DT* data() { return (const DT*)_data.data(); }
     DT* mut_data() { return (DT*)_data.data(); }
 

@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <nanobind/nanobind.h>
 
 #include "mpi.h"
@@ -56,11 +57,11 @@ st_vec<uint32_t> read_edges(const char *file_name) {
   size_t local_size = tgt_nodes.counts()[0];
   assert(local_size == src_nodes.counts()[0]);
 
-  // sort
   st_vec<uint32_t> st_data(local_size);
-  for (size_t i = 0; i < local_size; i++) {
-    st_data[i] = Edge<uint32_t>(tgt_nodes.data()[i], src_nodes.data()[i]);
-  }
+  std::transform(
+      tgt_nodes.vdata().begin(), tgt_nodes.vdata().end(),
+      src_nodes.vdata().begin(), st_data.begin(),
+      [](uint32_t tgt, uint32_t src) { return Edge<uint32_t>(tgt, src); });
 
   H5Fclose(file_id);
   return st_data;
@@ -105,7 +106,6 @@ int sort_edges_by_target(const char *file_name, const char *out_file_name) {
   full_timer.end_section("COMPLETE");
   return ret;
 }
-
 
 NB_MODULE(soque_ext, m) {
   m.doc() = "This is a example module built with nanobind";
