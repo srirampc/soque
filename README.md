@@ -38,8 +38,10 @@ mpirun -np 1 python tests/sort_test_seq.py pandas
 mpirun -np 1 python tests/sort_test_seq.py polars
 ```
 
-### Code name
+### Repository name
 
-Repo is name soque after Soque river in Georgia
+The github repo is named after Soque river in Georgia. Soque river is one of the
+major tributaries of the Chatahooche river which passes near Atlanta, GA, the
+home of Georgia Institue of Technology.
 
-![Soque river](https://upload.wikimedia.org/wikipedia/commons/c/c6/Soque_river_georgia.jpg)
+<img  src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Soque_river_georgia.jpg" alt="Soque River" width="250" height="355">

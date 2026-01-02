@@ -4,3 +4,6 @@
 [submodule "ext/mxx"]
 	path = ext/mxx
 	url = https://github.com/patflick/mxx.git
+[submodule "ext/trng4"]
+	path = ext/trng4
+	url = https://github.com/rabauke/trng4.git

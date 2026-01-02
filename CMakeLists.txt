@@ -15,6 +15,7 @@ project(
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_CXX_EXTENSIONS FALSE)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 if (NOT SKBUILD)
   message(WARNING "\
@@ -164,6 +165,16 @@ if (HDF5_FOUND)
     add_compile_definitions(USE_PARALLEL_HDF5)
   endif (HDF5_IS_PARALLEL)
 endif (HDF5_FOUND)
+
+# trng4 library
+set(TRNG_ENABLE_TESTS OFF)
+set(TRNG_ENABLE_EXAMPLES OFF)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ext/trng4)
+target_link_libraries(${PROJECT_NBMOD} PUBLIC trng4)
+#
+get_target_property(TRNG4_VERSION trng4 VERSION)
+message(STATUS "TRNG4 :")
+message(STATUS "  -> version     : ${TRNG4_VERSION}" )
 
 # Install directive for scikit-build-core
 install(TARGETS ${PROJECT_NBMOD} LIBRARY DESTINATION ${PROJECT_INSTALL_DIR})

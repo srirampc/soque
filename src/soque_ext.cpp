@@ -1,13 +1,19 @@
 #include <algorithm>
+#include <iterator>
 #include <nanobind/nanobind.h>
 
 #include "mpi.h"
+#include "mxx/reduction.hpp"
 #include <cassert>
 #include <cxx-prettyprint/prettyprint.hpp>
 #include <mxx/collective.hpp>
 #include <mxx/comm.hpp>
 #include <mxx/sort.hpp>
 #include <mxx/timer.hpp>
+
+#include <trng/uniform01_dist.hpp>
+#include <trng/yarn2.hpp>
+
 
 #include <soque/utils.hpp>
 #ifdef USE_PARALLEL_HDF5
@@ -107,6 +113,48 @@ int sort_edges_by_target(const char *file_name, const char *out_file_name) {
   return ret;
 }
 
+st_vec<uint32_t> select_edges(st_vec<uint32_t> &st_data, double threshold) {
+  trng::yarn2 r;
+  trng::uniform01_dist<> u;
+
+  hsize_t ld_size = st_data.size();
+  hsize_t n_data = mxx::allreduce(ld_size, std::plus<hsize_t>());
+  hsize_t d_offset = mxx::exscan(ld_size, std::plus<hsize_t>());
+
+  if (d_offset > 0) {
+    r.jump(d_offset);
+  }
+
+  st_vec<uint32_t> sel_edges;
+  std::copy_if(st_data.begin(), st_data.end(), std::back_inserter(sel_edges),
+               [&u, &r, &threshold](const Edge<uint32_t> &ed) {
+                 return u(r) > threshold;
+               });
+  return sel_edges;
+}
+
+int remove_edges(const char *file_name, double threshold,
+                 const char *out_file_name) {
+  mxx::section_timer full_timer;
+  mxx::section_timer sec_timer;
+  st_vec<uint32_t> st_data(read_edges(file_name));
+  sec_timer.end_section("READ EDGES");
+
+  auto edge_cmp = [](const Edge<uint32_t> &x, const Edge<uint32_t> &y) {
+    return x.target < y.target;
+  };
+  mxx::sort(st_data.begin(), st_data.end(), edge_cmp, MPI_COMM_WORLD);
+  sec_timer.end_section("SORT EDGES");
+  st_vec<uint32_t> sel_st_data(select_edges(st_data, threshold));
+  st_data.clear();
+  sec_timer.end_section("SELECT EDGES");
+
+  int ret = save_edges(sel_st_data, out_file_name);
+  sec_timer.end_section("SAVE EDGES");
+  full_timer.end_section("COMPLETE");
+  return ret;
+}
+
 NB_MODULE(soque_ext, m) {
   m.doc() = "This is a example module built with nanobind";
   m.def("sort_edges", &sort_edges_by_target, "file_name"_a, "out_file_name"_a,
@@ -116,5 +164,16 @@ NB_MODULE(soque_ext, m) {
         file_name     : string input file path
         out_file_name : string output file path
     Returns:
-        Batch Corrected Matrix )pbdoc");
+        integer error code )pbdoc");
+
+  m.def("remove_edges", &remove_edges, "file_name"_a, "threshold"_a,
+        "out_file_name"_a,
+        R"pbdoc(
+    Sort data by target
+    Args:
+        file_name     : string input file path
+        threshold     : uniform threshold
+        out_file_name : string output file path
+    Returns:
+        integer error code )pbdoc");
 }

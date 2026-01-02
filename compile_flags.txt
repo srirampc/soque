@@ -16,6 +16,8 @@
 -Iext/mxx/ext/
 -Iext/eigen
 -Iext/nanobind/include/
+-Iext/trng4/
+-Ibuild/ext/trng4/
 -I/storage/home/hcoda1/0/schockalingam6/dev/network-editor/soque/ext/nanobind/include
 -I/storage/ideas/is-schockalingam6-0/phe/spack/opt/spack/linux-cascadelake/miniforge3-24.3.0-0-xgjqahntab2nzxf2nfab5k5ixrky2z2n/envs/soque1/include/python3.12
 -I/storage/ideas/is-schockalingam6-0/phe/spack/opt/spack/linux-cascadelake/openmpi-5.0.7-w5rcohrmlmcqysx6nxadokehwg6fcgdq/include

@@ -1,1 +1,1 @@
-from .soque_ext import sort_edges, __doc__
+from .soque_ext import sort_edges, remove_edges, __doc__
